@@ -9,7 +9,7 @@ provide the hairpin-like text figure along with sequences and
 secondary structures in dot-bracket notation which could produced
 by ViennaRNA package.
 
-However, neigher miRBase nor ViennaRNA provide any scripts or
+However, neither miRBase nor ViennaRNA provide any scripts or
 programs to transfrom dot-bracket notation to hairpin-like text
 figure, which was needed in our miRNA prediction project.
 

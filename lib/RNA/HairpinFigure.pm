@@ -28,7 +28,7 @@ provide the hairpin-like text figure along with sequences and
 secondary structures in dot-bracket notation which could produced
 by ViennaRNA package.
 
-However, neigher miRBase nor ViennaRNA provide any scripts or
+However, neither miRBase nor ViennaRNA provide any scripts or
 programs to transfrom dot-bracket notation to hairpin-like text
 figure, which was needed in our miRNA prediction project.
 
@@ -44,11 +44,11 @@ May this module be helpful for you.
 
 =head1 VERSION
 
-Version 0.13 released in 2013.
+Version 0.140101 released at 1th Jan. 2014.
 
 =cut
 
-our $VERSION = '0.13';
+our $VERSION = '0.140101';
 
 =head1 SYNOPSIS
 
@@ -69,7 +69,7 @@ Output:
     >hsa-mir-92a-1 MI0000093 Homo sapiens miR-92a-1 stem-loop
     CUUUCUACACAGGUUGGGAUCGGUUGCAAUGCUGUGUUUCUGUAUGGUAUUGCACUUGUCCCGGCCUGUUGAGUUUGG
     ..(((...((((((((((((.(((.(((((((((((......)))))))))))))).)))))))))))).))).....
-    ---CU   UAA            C   U           UU 
+    ---CU   UAC            C   U           UU 
          UUC   ACAGGUUGGGAU GGU GCAAUGCUGUG  U
          |||   |||||||||||| ||| |||||||||||   
          GAG   UGUCCGGCCCUG UCA CGUUAUGGUAU  G
@@ -82,7 +82,7 @@ draw make_pair_table make_pair_table_deleting_multi_loops
 
 =head1 SUBROUTINES/METHODS
 
-=head2 Draw SCALAR SCALAR
+=head2 draw SCALAR SCALAR
 
 Returns the hairpin-like text figures. Sequence and 
 its secondary structure in dot-bracket notation are
@@ -146,7 +146,7 @@ sub draw($$) {
             push @l5, '-';
         }
         for ( 1 .. ( $len - $right[0] ) ) {
-            push @l1, substr( $seq, $_ - 2,    1 );
+            push @l1, substr( $seq, $_,        1 );
             push @l2, ' ';
             push @l3, ' ';
             push @l4, ' ';
@@ -221,11 +221,11 @@ sub draw($$) {
                     push @l5, '-';
                 }
                 for ( 1 .. $n3 ) {
-                    push @l1, substr( $seq, $next5 + $_ - 1, 1 );
+                    push @l1, substr( $seq, $next5 + $n5 - $n3 + $_ - 2,, 1 );
                     push @l2, ' ';
                     push @l3, ' ';
                     push @l4, ' ';
-                    push @l5, substr( $seq, $next3 - $_,     1 );
+                    push @l5, substr( $seq, $next3 - $_,                  1 );
                 }
             }
             elsif ( $n5 < $n3 ) {
@@ -237,11 +237,11 @@ sub draw($$) {
                     push @l5, substr( $seq, $next3 - $_, 1 );
                 }
                 for ( 1 .. $n5 ) {
-                    push @l1, substr( $seq, $next5 + $_ - 1, 1 );
+                    push @l1, substr( $seq, $next5 + $_ - 2, 1 );
                     push @l2, ' ';
                     push @l3, ' ';
                     push @l4, ' ';
-                    push @l5, substr( $seq, $next3 - $_ - 1, 1 );
+                    push @l5, substr( $seq, $next3 - ( $n3 - $n5 ) - $_, 1 );
                 }
             }
             else {

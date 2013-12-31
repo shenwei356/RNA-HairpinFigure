@@ -12,7 +12,7 @@ my $struct
     = '..(((...((((((((((((.(((.(((((((((((......)))))))))))))).)))))))))))).))).....';
 
 my $f
-    = "---CU   UAA            C   U           UU \n"
+    = "---CU   UAC            C   U           UU \n"
     . "     UUC   ACAGGUUGGGAU GGU GCAAUGCUGUG  U\n"
     . "     |||   |||||||||||| ||| |||||||||||   \n"
     . "     GAG   UGUCCGGCCCUG UCA CGUUAUGGUAU  G\n"
