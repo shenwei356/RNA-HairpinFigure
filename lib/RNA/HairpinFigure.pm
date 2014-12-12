@@ -44,11 +44,11 @@ May this module be helpful for you.
 
 =head1 VERSION
 
-Version 0.140101 released at 1th Jan. 2014.
+Version 0.141212 released at 12th Dec. 2014.
 
 =cut
 
-our $VERSION = '0.140101';
+our $VERSION = '0.141212';
 
 =head1 SYNOPSIS
 
@@ -119,26 +119,28 @@ sub draw($$) {
     my @right = map  { $$table{$_} } @left;
 
     # ssRNA
-    if ( $len - $right[0] >= $left[0] - 1 ) {
-        for ( 1 .. ( $len - $right[0] - ( $left[0] - 1 ) ) ) {
+    my $overhang_len_5p = $left[0] - 1;
+    my $overhang_len_3p = $len - $right[0];
+    if ( $overhang_len_3p >= $overhang_len_5p ) {
+        for ( 1 .. ( $overhang_len_3p - $overhang_len_5p ) ) {
             push @l1, '-';
             push @l2, ' ';
             push @l3, ' ';
             push @l4, ' ';
             push @l5, substr( $seq, $len - $_, 1 );
         }
-        for ( 1 .. ( $left[0] - 1 ) ) {
+        for ( 1 .. $overhang_len_5p ) {
             push @l1, substr( $seq, $_ - 1, 1 );
             push @l2, ' ';
             push @l3, ' ';
             push @l4, ' ';
             push @l5,
                 substr( $seq,
-                $len - ( $len - $right[0] - ( $left[0] - 1 ) ) - $_, 1 );
+                $len - ( $overhang_len_3p - $overhang_len_5p ) - $_, 1 );
         }
     }
     else {
-        for ( 1 .. ( $left[0] - 1 - ( $len - $right[0] ) ) ) {
+        for ( 1 .. ( $overhang_len_5p - $overhang_len_3p ) ) {
             push @l1, substr( $seq, $_ - 1, 1 );
             push @l2, ' ';
             push @l3, ' ';
@@ -146,7 +148,7 @@ sub draw($$) {
             push @l5, '-';
         }
         for ( 1 .. ( $len - $right[0] ) ) {
-            push @l1, substr( $seq, $_,        1 );
+            push @l1, substr( $seq, $overhang_len_5p - $overhang_len_3p + $_ - 1,        1 );
             push @l2, ' ';
             push @l3, ' ';
             push @l4, ' ';
